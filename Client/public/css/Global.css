@@ -1,0 +1,294 @@
+/* ================================
+   GLOBAL RESET
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* ================================
+   LIGHT THEME (DEFAULT)
+================================ */
+:root {
+
+  /* ---------- BACKGROUNDS ---------- */
+  --bg-main: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-sidebar: #F1F5F9;
+  --bg-navbar: #FFFFFF;
+
+  /* ---------- TEXT ---------- */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --text-invert: #FFFFFF;
+
+  /* ---------- BRAND / TRUST ---------- */
+  --primary: #1E40AF;
+  --primary-light: #3B82F6;
+  --primary-dark: #1E3A8A;
+
+  /* ---------- STATUS COLORS ---------- */
+  --success: #16A34A;
+  --success-light: #4ADE80;
+  --success-dark: #166534;
+
+  --danger: #DC2626;
+  --danger-light: #F87171;
+  --danger-dark: #7F1D1D;
+
+  --warning: #F59E0B;
+  --warning-light: #FCD34D;
+  --warning-dark: #92400E;
+
+  /* ---------- CYBER ACCENT ---------- */
+  --accent: #7C3AED;
+  --accent-light: #A78BFA;
+  --accent-dark: #4C1D95;
+
+  /* ---------- UI ---------- */
+  --border-color: #E2E8F0;
+  --hover-bg: #E0E7FF;
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.06);
+  --shadow-md: 0 6px 16px rgba(0,0,0,0.10);
+}
+
+/* ================================
+   DARK THEME
+================================ */
+[data-theme="dark"] {
+
+  /* ---------- BACKGROUNDS ---------- */
+  --bg-main: #020617;
+  --bg-card: #0F172A;
+  --bg-sidebar: #020617;
+  --bg-navbar: #020617;
+
+  /* ---------- TEXT ---------- */
+  --text-primary: #E5E7EB;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-invert: #020617;
+
+  /* ---------- BRAND / TRUST ---------- */
+  --primary: #3B82F6;
+  --primary-light: #60A5FA;
+  --primary-dark: #1D4ED8;
+
+  /* ---------- STATUS COLORS ---------- */
+  --success: #22C55E;
+  --success-light: #4ADE80;
+  --success-dark: #166534;
+
+  --danger: #EF4444;
+  --danger-light: #F87171;
+  --danger-dark: #7F1D1D;
+
+  --warning: #FBBF24;
+  --warning-light: #FCD34D;
+  --warning-dark: #92400E;
+
+  /* ---------- CYBER ACCENT ---------- */
+  --accent: #8B5CF6;
+  --accent-light: #A78BFA;
+  --accent-dark: #5B21B6;
+
+  /* ---------- UI ---------- */
+  --border-color: #1E293B;
+  --hover-bg: #1E3A8A;
+  --shadow-sm: 0 4px 10px rgba(0,0,0,0.4);
+  --shadow-md: 0 12px 28px rgba(0,0,0,0.7);
+}
+
+/* ================================
+   GLOBAL ELEMENTS
+================================ */
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  transition: background 0.3s, color 0.3s;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* ================================
+   LAYOUT
+================================ */
+.navbar {
+  background: var(--bg-navbar);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar {
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+}
+
+.main-content {
+  padding: 20px;
+}
+
+/* ================================
+   CARDS (DASHBOARD / TRADING)
+================================ */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: var(--shadow-md);
+  padding: 16px;
+}
+
+/* ================================
+   BUTTONS
+================================ */
+.btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--text-invert);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-success {
+  background: var(--success);
+  color: #fff;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn-warning {
+  background: var(--warning);
+  color: #000;
+}
+
+/* ================================
+   TABLES (TRADES / STOCKS)
+================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background: var(--bg-sidebar);
+  color: var(--text-secondary);
+}
+
+tr {
+  border-bottom: 1px solid var(--border-color);
+}
+
+tr:hover {
+  background: var(--hover-bg);
+}
+
+/* ================================
+   TRADING STATUS
+================================ */
+.profit {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.loss {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* ================================
+   CYBERSECURITY EFFECTS
+================================ */
+.secure-border {
+  border: 1px solid var(--primary);
+  box-shadow: 0 0 10px rgba(59,130,246,0.5);
+}
+
+.cyber-glow {
+  box-shadow: 0 0 20px rgba(124,58,237,0.6);
+}
+
+/* ================================
+   ALERTS
+================================ */
+.alert {
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.alert-success {
+  background: rgba(34,197,94,0.15);
+  color: var(--success);
+}
+
+.alert-danger {
+  background: rgba(239,68,68,0.15);
+  color: var(--danger);
+}
+
+.alert-warning {
+  background: rgba(251,191,36,0.2);
+  color: var(--warning);
+}
+
+/* ================================
+   FORMS
+================================ */
+input, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* ================================
+   SCROLLBAR (OPTIONAL)
+================================ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 8px;
+}

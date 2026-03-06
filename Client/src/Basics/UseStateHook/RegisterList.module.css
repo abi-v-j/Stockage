@@ -1,0 +1,104 @@
+.mainContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #F5E5E1;
+}
+
+.container {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    display: flex;
+    padding: 20px;
+    border-radius: 10px;
+    width: 450px;
+    height: 500px;
+    background-color: #BADFDB;
+
+}
+
+
+.subcontainer {
+    background-color: #9CC6DB;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    gap: 10px
+}
+
+.inp {
+    width: 400px;
+    height: 35px;
+    padding-left: 20px;
+    border: 0;
+    border-bottom: 1px solid;
+    outline: none;
+    border-radius: 15px;
+    margin: 3px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.inp:hover {
+    color: black;
+}
+
+.inp1 {
+    border-bottom: 1px solid;
+    width: 400px;
+    height: 35px;
+    padding-left: 20px;
+    outline: none;
+    border: 0;
+    margin: -5px;
+   
+    
+}
+
+.btn {
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    border: 0;
+    background-color: rgb(145, 145, 217);
+    color: rgb(13, 13, 13);
+    font-size: 15px;
+    padding: 10px;
+}
+
+.btn:hover {
+    background-color: #D2DCB6;
+    color: black;
+
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+
+.titleContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 70px;
+  
+}
+
+.title {
+    font-size: 25px;
+    border-radius: 10px;
+    color: #541212;
+    
+}
+
+.bst {
+    width: 400px;
+    height: 35px;
+    padding-left: 20px;
+    border: 0;
+    border-bottom: 1px solid;
+    outline: none;
+}

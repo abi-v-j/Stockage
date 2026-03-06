@@ -1,0 +1,521 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* ═══════════════════════════════════════
+   CSS VARIABLES
+═══════════════════════════════════════ */
+:root {
+  --bg-deep:       #050b12;
+  --bg-panel:      #07101c;
+  --bg-surface:    #0d1a28;
+  --bg-elevated:   #122030;
+  --bg-hover:      rgba(0, 180, 255, 0.06);
+
+  --border-subtle: rgba(0, 180, 255, 0.1);
+  --border-mid:    rgba(0, 180, 255, 0.18);
+  --border-glow:   rgba(0, 229, 160, 0.28);
+
+  --accent-green:  #00e5a0;
+  --accent-teal:   #00c8f0;
+  --accent-red:    #ff4d6d;
+  --accent-amber:  #ffb800;
+
+  /* ── IMPROVED TEXT COLORS (brighter) ── */
+  --text-primary:   #e8f4ff;     /* was #d6eaf8 — now brighter white-blue */
+  --text-secondary: #8eb8d4;     /* was #5d8099 — now clearly readable */
+  --text-tertiary:  #4a7a9b;     /* mid tone for subtext */
+  --text-muted:     #2d4d62;     /* faint, for labels only */
+
+  --glow-green: 0 0 18px rgba(0, 229, 160, 0.28);
+  --glow-teal:  0 0 18px rgba(0, 184, 217, 0.22);
+}
+
+/* ═══════════════════════════════════════
+   SIDEBAR SHELL
+═══════════════════════════════════════ */
+.sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border-subtle);
+
+  background-image:
+    linear-gradient(180deg, rgba(0,229,160,0.03) 0%, transparent 30%),
+    linear-gradient(180deg, transparent 70%, rgba(0,184,217,0.025) 100%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 40px,
+      rgba(0, 180, 255, 0.018) 40px,
+      rgba(0, 180, 255, 0.018) 41px
+    );
+
+  font-family: 'Outfit', sans-serif;
+  padding-bottom: 16px;
+}
+
+.orb1 {
+  position: absolute;
+  top: -50px;
+  left: -30px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,229,160,0.09) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb2 {
+  position: absolute;
+  bottom: 80px;
+  right: -50px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,184,217,0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════════
+   BRAND ROW — brand + toggle side by side
+═══════════════════════════════════════ */
+.brandRow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 12px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+  min-height: 64px;
+  gap: 8px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
+}
+
+.logoMark {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;         /* never shrink */
+  border-radius: 9px;
+  background: linear-gradient(135deg, rgba(0,229,160,0.15), rgba(0,229,160,0.04));
+  border: 1px solid rgba(0,229,160,0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--glow-green), inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+.brandTextWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.brandName {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 15.5px;
+  color: var(--text-primary);       /* bright white-blue */
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.brandStatus {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Space Mono', monospace;
+  font-size: 8.5px;
+  color: var(--accent-green);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+.statusPulse {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  box-shadow: 0 0 7px var(--accent-green);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.35; transform: scale(0.65); }
+}
+
+/* ═══════════════════════════════════════
+   TOGGLE — sits INSIDE the brand row
+═══════════════════════════════════════ */
+.toggleBtn {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,229,160,0.22);
+  background: rgba(0,229,160,0.06);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: border-color 0.2s, background 0.2s;
+  /* no absolute positioning — flows naturally in the row */
+}
+
+.toggleBtn:hover {
+  border-color: rgba(0,229,160,0.5);
+  background: rgba(0,229,160,0.13);
+}
+
+/* When sidebar is closed, center the toggle vertically in the row */
+.sidebar [data-closed] .toggleBtn {
+  margin: auto;
+}
+
+/* ═══════════════════════════════════════
+   TICKER STRIP
+═══════════════════════════════════════ */
+.tickerStrip {
+  position: relative;
+  z-index: 1;
+  margin: 10px 10px 0;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(0,229,160,0.025);
+  padding: 5px 2px 3px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.tickerRow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.tickerRow:hover {
+  background: rgba(255,255,255,0.04);
+}
+
+.tickerSym {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-secondary);   /* brighter — was text-muted */
+  letter-spacing: 0.06em;
+  width: 36px;
+  flex-shrink: 0;
+}
+
+.tickerVal {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  margin-left: auto;
+  letter-spacing: 0.04em;
+}
+
+.up   { color: var(--accent-green); }
+.down { color: var(--accent-red); }
+
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+.nav {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  scrollbar-width: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+
+.group {
+  margin-bottom: 2px;
+}
+
+.groupLabel {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);     /* was text-muted — now readable */
+  padding: 10px 10px 4px;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════
+   NAV ITEM
+═══════════════════════════════════════ */
+.linkWrap {
+  text-decoration: none;
+  display: block;
+}
+
+.navItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 9px;
+  min-height: 42px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.16s;
+}
+
+.navItem:hover {
+  background: var(--bg-hover);
+}
+
+.activeBg {
+  position: absolute;
+  inset: 0;
+  border-radius: 9px;
+  background: linear-gradient(
+    110deg,
+    rgba(0,229,160,0.1) 0%,
+    rgba(0,184,217,0.06) 100%
+  );
+  border: 1px solid rgba(0,229,160,0.18);
+  box-shadow: inset 0 0 20px rgba(0,229,160,0.05);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.activeBar {
+  position: absolute;
+  left: 0;
+  top: 18%;
+  bottom: 18%;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green), 0 0 20px rgba(0,229,160,0.35);
+  z-index: 2;
+}
+
+/* ── Icon ── */
+.iconWrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  color: var(--text-tertiary);      /* was text-muted — now visible */
+  transition: color 0.18s, background 0.18s;
+}
+
+.navItem:hover .iconWrap {
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.05);
+}
+
+.iconActive {
+  color: var(--accent-green) !important;
+  background: rgba(0,229,160,0.12) !important;
+  box-shadow: 0 0 12px rgba(0,229,160,0.18);
+}
+
+.iconWrap svg {
+  font-size: 18px !important;
+}
+
+/* ── Label ── */
+.label {
+  position: relative;
+  z-index: 1;
+  font-size: 13.5px;              /* slightly larger */
+  font-weight: 400;
+  color: var(--text-secondary);   /* was text-secondary dark — now bright */
+  white-space: nowrap;
+  flex: 1;
+  transition: color 0.16s;
+  letter-spacing: 0.01em;
+}
+
+.navItem:hover .label {
+  color: var(--text-primary);
+}
+
+.navItem.active .label {
+  color: #7eedc8;                 /* bright mint for active */
+  font-weight: 500;
+}
+
+/* ── Tags ── */
+.tag {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.tagLive {
+  background: rgba(0,229,160,0.12);
+  color: var(--accent-green);
+  border: 1px solid rgba(0,229,160,0.25);
+}
+
+.tagNew {
+  background: rgba(0,200,240,0.12);
+  color: var(--accent-teal);
+  border: 1px solid rgba(0,200,240,0.25);
+}
+
+.tagPulse {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  animation: pulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 5px var(--accent-green);
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+.footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 8px 0;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(0,180,255,0.04);
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+
+.footer:hover {
+  border-color: var(--border-mid);
+  background: rgba(0,180,255,0.07);
+}
+
+.footerAvatar {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0d2535, #091520);
+  border: 1.5px solid rgba(0,229,160,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--accent-green);
+  box-shadow: 0 0 12px rgba(0,229,160,0.12);
+}
+
+.footerText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.footerName {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-primary);     /* bright white-blue */
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.footerRole {
+  font-family: 'Space Mono', monospace;
+  font-size: 8.5px;
+  color: var(--accent-teal);
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+  opacity: 0.9;
+}
+
+.footerOnline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.onlineDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  box-shadow: 0 0 8px var(--accent-green);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════
+   MUI TOOLTIP
+═══════════════════════════════════════ */
+:global(.MuiTooltip-tooltip) {
+  background: rgba(5, 12, 22, 0.98) !important;
+  border: 1px solid rgba(0,229,160,0.22) !important;
+  font-family: 'Space Mono', monospace !important;
+  font-size: 10px !important;
+  color: var(--accent-green) !important;
+  border-radius: 7px !important;
+  padding: 5px 11px !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.6), var(--glow-green) !important;
+  letter-spacing: 0.06em !important;
+}
+
+:global(.MuiTooltip-arrow) {
+  color: rgba(5, 12, 22, 0.98) !important;
+}

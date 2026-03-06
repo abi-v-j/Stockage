@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* ═══════════════════════════════════════
+   CSS VARIABLES — matches Sidebar/Navbar
+═══════════════════════════════════════ */
+:root {
+  --bg-deep:        #050b12;
+  --bg-panel:       #080f19;
+  --bg-surface:     #0d1826;
+  --bg-elevated:    #111f30;
+
+  --border-subtle:  rgba(0, 180, 255, 0.07);
+  --border-mid:     rgba(0, 180, 255, 0.13);
+
+  --accent-green:   #00e5a0;
+  --accent-teal:    #00b8d9;
+
+  --text-primary:   #d6eaf8;
+  --text-secondary: #5d8099;
+  --text-muted:     #263545;
+
+  --scrollbar-track: #080f19;
+  --scrollbar-thumb: #111f30;
+  --scrollbar-hover: #1a2e42;
+}
+
+/* ═══════════════════════════════════════
+   GLOBAL RESET FOR THIS LAYOUT
+═══════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+}
+
+/* ═══════════════════════════════════════
+   ROOT — full viewport flex row
+═══════════════════════════════════════ */
+.root {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: var(--bg-deep);
+
+  /* Radial atmosphere at center */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,229,160,0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(0,184,217,0.03) 0%, transparent 55%);
+}
+
+/* ═══════════════════════════════════════
+   SIDEBAR SLOT
+═══════════════════════════════════════ */
+.sidebarSlot {
+  flex-shrink: 0;
+  height: 100vh;
+  position: relative;
+  z-index: 200;
+}
+
+/* ═══════════════════════════════════════
+   MAIN COLUMN
+═══════════════════════════════════════ */
+.mainCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;         /* prevent flex overflow */
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════
+   NAVBAR SLOT
+═══════════════════════════════════════ */
+.navbarSlot {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 100;
+}
+
+/* ═══════════════════════════════════════
+   CONTENT AREA
+═══════════════════════════════════════ */
+.content {
+  flex: 1;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--bg-deep);
+
+  /* Layered background texture */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 48px,
+      rgba(0, 180, 255, 0.012) 48px,
+      rgba(0, 180, 255, 0.012) 49px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 48px,
+      rgba(0, 180, 255, 0.012) 48px,
+      rgba(0, 180, 255, 0.012) 49px
+    );
+
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+.content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-hover);
+}
+
+/* ═══════════════════════════════════════
+   GRID OVERLAY (decorative dot grid)
+═══════════════════════════════════════ */
+.gridOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 180, 255, 0.07) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+
+  /* Fade dot grid out toward center so content stays clean */
+  -webkit-mask-image: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    transparent 30%,
+    rgba(0,0,0,0.15) 60%,
+    rgba(0,0,0,0.5) 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    transparent 30%,
+    rgba(0,0,0,0.15) 60%,
+    rgba(0,0,0,0.5) 100%
+  );
+}
+
+/* ═══════════════════════════════════════
+   PAGE INNER — wraps AdminRoutes output
+═══════════════════════════════════════ */
+.pageInner {
+  position: relative;
+  z-index: 1;
+  padding: 28px 28px 40px;
+  min-height: 100%;
+  animation: fadeUp 0.4s ease both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 768px) {
+  .sidebarSlot {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 300;
+  }
+
+  .pageInner {
+    padding: 16px 14px 32px;
+  }
+}

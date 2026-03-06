@@ -1,0 +1,186 @@
+/* ===== MAIN CONTAINER ===== */
+.maincontainer {
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* ===== SIGNUP CARD ===== */
+.boxes {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.boxes:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== HEADINGS ===== */
+.head {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.head h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: #333;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.head1 p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* ===== INPUTS ===== */
+.inp1 {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.inp {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1.5px solid #e0e0e0;
+  background: white;
+  color: #333;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.inp::placeholder {
+  color: #999;
+}
+
+.inp:focus {
+  border-color: #667eea;
+  background-color: #f9f9ff;
+  box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+}
+
+.inp[type="file"] {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.inp[type="file"]::file-selector-button {
+  background-color: #667eea;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 10px;
+  transition: 0.3s ease;
+}
+
+.inp[type="file"]::file-selector-button:hover {
+  background-color: #5568d3;
+}
+
+/* ===== BUTTON ===== */
+.inp3 {
+  margin-top: 10px;
+}
+
+.inp3 button {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+}
+
+.inp3 button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.5);
+}
+
+.inp3 button:active {
+  transform: translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .boxes {
+    padding: 30px 20px;
+  }
+
+  .head h2 {
+    font-size: 24px;
+  }
+
+  .inp {
+    height: 44px;
+    font-size: 13px;
+  }
+
+  .inp3 button {
+    height: 46px;
+    font-size: 15px;
+  }
+}
+
+/* ===== OPTIONAL LINK ===== */
+.forgot {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #c7d2fe;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.25s ease;
+}
+
+.forgot:hover {
+  color: #60a5fa;
+}
+
+/* ===== SMALL DEVICES ===== */
+@media (max-width: 420px) {
+  .boxes {
+    padding: 28px 20px;
+    border-radius: 16px;
+  }
+
+  .head h2 {
+    font-size: 20px;
+  }
+
+  .inp {
+    height: 44px;
+  }
+
+  .inp3 button {
+    height: 46px;
+  }
+}
