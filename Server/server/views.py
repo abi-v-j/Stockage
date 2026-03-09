@@ -2,6 +2,108 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 import json
+from django.db.models import Max
+from decimal import Decimal
+
+def match_orders(stock_id):
+
+    buy_orders = tbl_order.objects.filter(
+        order_stock_id=stock_id,
+        order_type="buy",
+        order_status=0
+    ).order_by("-order_price", "order_datetime")
+
+    sell_orders = tbl_order.objects.filter(
+        order_stock_id=stock_id,
+        order_type="sell",
+        order_status=0
+    ).order_by("order_price", "order_datetime")
+
+    for buy in buy_orders:
+        for sell in sell_orders:
+
+            if buy.order_price < sell.order_price:
+                continue
+
+            trade_qty = min(buy.order_quantity, sell.order_quantity)
+            trade_price = sell.order_price
+
+            # -------- create trade --------
+            trade = tbl_trade.objects.create(
+                trade_executeprice=trade_price,
+                trade_quantity=trade_qty,
+                trade_order_id=buy
+            )
+
+            # -------- update quantities --------
+            buy.order_quantity -= trade_qty
+            sell.order_quantity -= trade_qty
+
+            if buy.order_quantity == 0:
+                buy.order_status = 1
+
+            if sell.order_quantity == 0:
+                sell.order_status = 1
+
+            buy.save()
+            sell.save()
+
+            # -------- update portfolio --------
+            buyer = buy.order_user_id
+            seller = sell.order_user_id
+
+            stock = buy.order_stock_id
+
+            portfolio, created = tbl_portfolio.objects.get_or_create(
+                user_id=buyer,
+                stock_id=stock,
+                defaults={
+                    "portfolio_quantity": 0,
+                    "portfolio_averageprice": trade_price
+                }
+            )
+
+            total_cost = (
+                portfolio.portfolio_quantity *
+                portfolio.portfolio_averageprice
+            ) + (trade_qty * trade_price)
+
+            portfolio.portfolio_quantity += trade_qty
+            portfolio.portfolio_averageprice = (
+                total_cost / portfolio.portfolio_quantity
+            )
+
+            portfolio.save()
+
+            # -------- seller portfolio update --------
+            seller_portfolio = tbl_portfolio.objects.filter(
+                user_id=seller,
+                stock_id=stock
+            ).first()
+
+            if seller_portfolio:
+                seller_portfolio.portfolio_quantity -= trade_qty
+
+                if seller_portfolio.portfolio_quantity <= 0:
+                    seller_portfolio.portfolio_status = 0
+
+                seller_portfolio.save()
+
+            # -------- wallet credit seller --------
+            seller_wallet = tbl_wallet.objects.get(user_id=seller)
+            seller_wallet.wallet_balance += trade_qty * trade_price
+            seller_wallet.save()
+
+            # -------- wallet transaction --------
+            tbl_wallettransaction.objects.create(
+                wallet_id=seller_wallet,
+                wallettransaction_type="credit",
+                wallettransaction_amount=trade_qty * trade_price,
+                wallettransaction_order_id=sell
+            )
+
+            if buy.order_status == 1:
+                break
 
 @csrf_exempt
 def category(request):
@@ -338,23 +440,28 @@ def userchangepassword(request, uid):
 
 @csrf_exempt
 def userviewstocks(request, cid):
-    stockdata = list(
-        tbl_stock.objects.filter(company_id=cid, stock_status=1).values(
-            "id",
-            "stock_symbol",
-            "stock_name",
-            "stock_status",
-            "category_id",
-            "category_id__category_name",
-            "company_id",
-            "company_id__company_name"
-        )
+
+    stocks = tbl_stock.objects.filter(
+        company_id=cid,
+        stock_status=1
     )
 
-    return JsonResponse({
-        "stockdata": stockdata
-    })
+    result = []
 
+    for stock in stocks:
+        latest = tbl_stockprice.objects.filter(
+            stock_id=stock.id
+        ).order_by("-stock_date").first()
+
+        result.append({
+            "id": stock.id,
+            "stock_symbol": stock.stock_symbol,
+            "stock_name": stock.stock_name,
+            "category": stock.category_id.category_name,
+            "price": latest.stock_price if latest else 0
+        })
+
+    return JsonResponse({"stockdata": result})
 
 @csrf_exempt
 def userwallet(request, uid):
@@ -609,15 +716,16 @@ def placeorder(request):
             wallet.wallet_balance = wallet.wallet_balance - total_amount
             wallet.save()
 
-            tbl_order.objects.create(
-                order_type="buy",
+            order = tbl_order.objects.create(
+                order_type=order_type,
                 order_quantity=quantity,
                 order_price=price,
-                order_status=1,
+                order_status=0,
                 order_user_id=user,
                 order_stock_id=stock
             )
 
+            match_orders(stock.id)
             return JsonResponse({
                 "message": "Buy order placed successfully"
             })
@@ -665,4 +773,51 @@ def myorders(request, uid):
 
     return JsonResponse({
         "orderdata": orderdata
+    })
+
+
+
+@csrf_exempt
+def userportfolio(request, uid):
+
+    portfolio = tbl_portfolio.objects.filter(
+        user_id=uid,
+        portfolio_status=1
+    ).values(
+        "id",
+        "portfolio_quantity",
+        "portfolio_averageprice",
+        "stock_id",
+        "stock_id__stock_name",
+        "stock_id__stock_symbol"
+    )
+
+    data = []
+
+    for p in portfolio:
+
+        latest_price = tbl_stockprice.objects.filter(
+            stock_id=p["stock_id"]
+        ).order_by("-stock_date").first()
+
+        current_price = latest_price.stock_price if latest_price else 0
+
+        investment = p["portfolio_quantity"] * p["portfolio_averageprice"]
+        current_value = p["portfolio_quantity"] * current_price
+
+        profit_loss = current_value - investment
+
+        data.append({
+            "stock_symbol": p["stock_id__stock_symbol"],
+            "stock_name": p["stock_id__stock_name"],
+            "quantity": p["portfolio_quantity"],
+            "avg_price": p["portfolio_averageprice"],
+            "current_price": current_price,
+            "investment": investment,
+            "current_value": current_value,
+            "profit_loss": profit_loss
+        })
+
+    return JsonResponse({
+        "portfolio": data
     })

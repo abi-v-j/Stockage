@@ -8,74 +8,61 @@ const Changepassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleChangePassword = () => {
+  const changePassword = async () => {
     if (!currentPassword || !newPassword || !confirmPassword) {
-      alert("All fields are required");
+      alert("All fields required");
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      alert("New password and confirm password must be same");
+      alert("Passwords not matching");
       return;
     }
 
-    const data = {
-      current_password: currentPassword,
-      new_password: newPassword,
-    };
+    try {
+      const res = await axios.put(
+        `http://127.0.0.1:8000/userchangepassword/${uid}/`,
+        {
+          current_password: currentPassword,
+          new_password: newPassword,
+        }
+      );
 
-    axios
-      .put(`http://127.0.0.1:8000/userchangepassword/${uid}/`, data)
-      .then((res) => {
-        alert(res.data.message);
-        setCurrentPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
-      })
-      .catch((err) => {
-        alert(err.response?.data?.message || "Password change failed");
-      });
+      alert(res.data.message);
+
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (err) {
+      alert(err.response?.data?.message || "Error");
+    }
   };
 
   return (
-    <div>
-      <h2>Change Password</h2>
+    <>
+      <input
+        type="password"
+        placeholder="Current Password"
+        value={currentPassword}
+        onChange={(e) => setCurrentPassword(e.target.value)}
+      />
 
-      <div>
-        <input
-          type="password"
-          placeholder="Current Password"
-          value={currentPassword}
-          onChange={(e) => setCurrentPassword(e.target.value)}
-        />
-      </div>
+      <input
+        type="password"
+        placeholder="New Password"
+        value={newPassword}
+        onChange={(e) => setNewPassword(e.target.value)}
+      />
 
-      <br />
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+      />
 
-      <div>
-        <input
-          type="password"
-          placeholder="New Password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-        />
-      </div>
-
-      <br />
-
-      <div>
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-      </div>
-
-      <br />
-
-      <button onClick={handleChangePassword}>Change Password</button>
-    </div>
+      <button onClick={changePassword}>Change</button>
+    </>
   );
 };
 

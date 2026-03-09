@@ -31,6 +31,7 @@ path("pendingcompanies/", views.pendingcompanies),
 path("addmoney/<int:uid>/", views.addmoney),
   path("placeorder/", views.placeorder),
     path("myorders/<int:uid>/", views.myorders),
+    path("userportfolio/<int:uid>/", views.userportfolio)
 
 
 

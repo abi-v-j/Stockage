@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Wallet = () => {
+
   const uid = sessionStorage.getItem("uid");
 
   const [balance, setBalance] = useState(0);
@@ -21,12 +22,18 @@ const Wallet = () => {
   };
 
   const addMoney = () => {
+
+    if (!amount || amount <= 0) {
+      alert("Enter valid amount");
+      return;
+    }
+
     axios
       .post(`http://127.0.0.1:8000/addmoney/${uid}/`, {
-        amount: amount,
+        amount: Number(amount),
       })
       .then((res) => {
-        alert("Money Added");
+        alert(res.data.message);
         setAmount("");
         loadWallet();
       })
@@ -35,11 +42,10 @@ const Wallet = () => {
 
   return (
     <div>
+
       <h2>User Wallet</h2>
 
       <h3>Balance: ₹{balance}</h3>
-
-      <br />
 
       <input
         type="number"
@@ -51,7 +57,10 @@ const Wallet = () => {
       <br />
       <br />
 
-      <button onClick={addMoney}>Add Money</button>
+      <button onClick={addMoney}>
+        Add Money
+      </button>
+
     </div>
   );
 };

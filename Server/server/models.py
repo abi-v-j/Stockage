@@ -27,6 +27,8 @@ class tbl_users(models.Model):
 # -------------------------
 class tbl_company(models.Model):
     company_name = models.CharField(max_length=50)
+    company_email = models.CharField(max_length=50,null=True)
+    company_password = models.CharField(max_length=50,null=True)
     company_details = models.CharField(max_length=200)
 
     company_proof = models.FileField(upload_to="assets/company/")

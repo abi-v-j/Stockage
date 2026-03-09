@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 const ViewStocks = () => {
   const { id } = useParams();
+  const uid = sessionStorage.getItem("uid");
+
   const [stockList, setStockList] = useState([]);
 
   useEffect(() => {
@@ -19,6 +21,40 @@ const ViewStocks = () => {
       .catch(console.error);
   };
 
+  const buyStock = (sid) => {
+    const quantity = prompt("Enter Quantity");
+
+    if (!quantity) return;
+
+    axios
+      .post(`http://127.0.0.1:8000/placeorder/`, {
+        user_id: uid,
+        stock_id: sid,
+        order_type: "buy",
+        order_quantity: quantity,
+        order_price: 1
+      })
+      .then((res) => alert(res.data.message))
+      .catch((err) => alert(err.response?.data?.message));
+  };
+
+  const sellStock = (sid) => {
+    const quantity = prompt("Enter Quantity");
+
+    if (!quantity) return;
+
+    axios
+      .post(`http://127.0.0.1:8000/placeorder/`, {
+        user_id: uid,
+        stock_id: sid,
+        order_type: "sell",
+        order_quantity: quantity,
+        order_price: 1
+      })
+      .then((res) => alert(res.data.message))
+      .catch((err) => alert(err.response?.data?.message));
+  };
+
   return (
     <div>
       <h2>Company Stocks</h2>
@@ -31,6 +67,8 @@ const ViewStocks = () => {
             <th>Stock Name</th>
             <th>Category</th>
             <th>Status</th>
+            <th>Buy</th>
+            <th>Sell</th>
           </tr>
         </thead>
 
@@ -42,6 +80,18 @@ const ViewStocks = () => {
               <td>{item.stock_name}</td>
               <td>{item.category_id__category_name}</td>
               <td>{item.stock_status === 1 ? "Active" : "Inactive"}</td>
+
+              <td>
+                <button onClick={() => buyStock(item.id)}>
+                  Buy
+                </button>
+              </td>
+
+              <td>
+                <button onClick={() => sellStock(item.id)}>
+                  Sell
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
