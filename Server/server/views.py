@@ -457,6 +457,7 @@ def userviewstocks(request, cid):
             "id": stock.id,
             "stock_symbol": stock.stock_symbol,
             "stock_name": stock.stock_name,
+            "stock_status": stock.stock_status,
             "category": stock.category_id.category_name,
             "price": latest.stock_price if latest else 0
         })
@@ -821,3 +822,60 @@ def userportfolio(request, uid):
     return JsonResponse({
         "portfolio": data
     })
+
+
+
+@csrf_exempt
+def myprofile(request, uid):
+    try:
+        user = tbl_users.objects.get(id=uid)
+    except tbl_users.DoesNotExist:
+        return JsonResponse({"message": "User not found"}, status=404)
+
+    if request.method == "GET":
+        data = {
+            "id": user.id,
+            "user_name": user.user_name,
+            "user_email": user.user_email,
+            "user_contact": user.user_contact,
+            "user_address": user.user_address,
+            "user_photo": user.user_photo.url if user.user_photo else None,
+        }
+        return JsonResponse({"userdata": data}, status=200)
+
+    return JsonResponse({"message": "Invalid request"}, status=405)
+
+
+@csrf_exempt
+def editprofile(request, uid):
+    try:
+        user = tbl_users.objects.get(id=uid)
+    except tbl_users.DoesNotExist:
+        return JsonResponse({"message": "User not found"}, status=404)
+
+    if request.method == "PUT" or request.method == "POST":
+        user.user_name = request.POST.get("user_name", user.user_name)
+        user.user_email = request.POST.get("user_email", user.user_email)
+        user.user_contact = request.POST.get("user_contact", user.user_contact)
+        user.user_address = request.POST.get("user_address", user.user_address)
+
+        if request.FILES.get("user_photo"):
+            user.user_photo = request.FILES.get("user_photo")
+
+        user.save()
+
+        data = {
+            "id": user.id,
+            "user_name": user.user_name,
+            "user_email": user.user_email,
+            "user_contact": user.user_contact,
+            "user_address": user.user_address,
+            "user_photo": user.user_photo.url if user.user_photo else None,
+        }
+
+        return JsonResponse({
+            "message": "Profile updated successfully",
+            "userdata": data
+        }, status=200)
+
+    return JsonResponse({"message": "Invalid request"}, status=405)

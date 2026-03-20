@@ -1,0 +1,148 @@
+.page {
+  min-height: calc(100vh - 90px);
+  padding: 32px;
+  background:
+    radial-gradient(circle at top right, rgba(0, 212, 164, 0.08), transparent 25%),
+    radial-gradient(circle at bottom left, rgba(0, 153, 255, 0.08), transparent 25%),
+    #0b1018;
+}
+
+.wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  margin-bottom: 24px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #00d4a4;
+  background: rgba(0, 212, 164, 0.08);
+  border: 1px solid rgba(0, 212, 164, 0.16);
+}
+
+.title {
+  margin: 10px 0 0;
+  font-size: 30px;
+  font-weight: 700;
+  color: #f3f7fc;
+}
+
+.subtitle {
+  margin-top: 6px;
+  color: #94a3b8;
+}
+
+/* Balance */
+.balanceCard {
+  margin-top: 20px;
+  padding: 30px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #00d4a4, #0099ff);
+  color: #081018;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 153, 255, 0.25);
+}
+
+.balanceLabel {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.balanceAmount {
+  font-size: 36px;
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+/* Add Money */
+.addCard {
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #111827, #0f1724);
+  border: 1px solid #1f2b3d;
+}
+
+.addCard h3 {
+  margin-bottom: 16px;
+  color: #e6edf7;
+}
+
+.inputWrap {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #1f2b3d;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 16px;
+}
+
+.currency {
+  color: #94a3b8;
+  margin-right: 8px;
+}
+
+.inputWrap input {
+  background: none;
+  border: none;
+  outline: none;
+  color: #e6edf7;
+  width: 100%;
+}
+
+/* Button */
+.addBtn {
+  width: 100%;
+  height: 44px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #00d4a4, #0099ff);
+  color: #081018;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.addBtn:hover {
+  transform: translateY(-1px);
+}
+
+/* Messages */
+.successBox {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(0, 212, 164, 0.08);
+  color: #6ee7c8;
+}
+
+.errorBox {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255, 79, 110, 0.08);
+  color: #ff9caf;
+}
+
+/* Loader */
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255,255,255,0.1);
+  border-top: 4px solid #00d4a4;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 100px auto 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

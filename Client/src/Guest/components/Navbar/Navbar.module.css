@@ -1,186 +1,412 @@
-/* ===== NAVBAR ===== */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
 
+/* ─── Wrapper ─────────────────────────────────────────────── */
+.navbarWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ─── Ticker Tape ─────────────────────────────────────────── */
+.tickerTape {
+  width: 100%;
+  background: #0d1017;
+  border-bottom: 1px solid #1a2236;
+  overflow: hidden;
+  height: 28px;
+  display: flex;
+  align-items: center;
+}
+
+.tickerInner {
+  display: flex;
+  gap: 0;
+  animation: tickerScroll 28s linear infinite;
+  white-space: nowrap;
+}
+
+.tickerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  border-right: 1px solid #1a2236;
+}
+
+.tickerSym {
+  color: #c0cbdf;
+  font-weight: 700;
+}
+
+.tickerVal {
+  color: #6b7a9a;
+}
+
+.tickerUp {
+  color: #00d4a4;
+}
+
+.tickerDown {
+  color: #ff4f6e;
+}
+
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── Main Navbar ─────────────────────────────────────────── */
 .navbar {
+  width: 100%;
+  background: linear-gradient(180deg, #0f1320 0%, #0c1019 100%);
+  border-bottom: 1px solid #1e2a40;
+  padding: 0 28px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   position: sticky;
   top: 0;
   z-index: 100;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 14px 40px;
-  border-radius: 6px;
-
-  background:
-    linear-gradient(120deg, rgba(2,6,23,.85), rgba(15,23,42,.85));
-  backdrop-filter: blur(18px);
-
-  border-bottom: 1px solid rgba(0,255,200,.15);
-  box-shadow: 0 8px 30px rgba(0,0,0,.45);
-
-  font-family: Inter, Arial, sans-serif;
 }
 
-/* ===== LOGO ===== */
-
+/* ─── Logo ────────────────────────────────────────────────── */
 .logo {
-  font-size: 20px;
-  font-weight: 900;
-  letter-spacing: .6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
 
-  background: linear-gradient(135deg,#22d3ee,#a78bfa,#34d399);
+.logoIcon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #00d4a4, #0099ff);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoText {
+  font-family: 'Space Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #e8edf5;
+  letter-spacing: -0.5px;
+}
+
+.logoAccent {
+  background: linear-gradient(135deg, #00d4a4, #0099ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
-  filter: drop-shadow(0 0 12px rgba(34,211,238,.35));
+  background-clip: text;
 }
 
-/* ===== LINKS ===== */
-
+/* ─── Nav Links ───────────────────────────────────────────── */
 .navLinks {
   display: flex;
-  gap: 30px;
+  align-items: center;
+  gap: 2px;
   list-style: none;
-  padding: 0;
+  flex: 1;
   margin: 0;
+  padding: 0;
 }
 
-.navLinks a {
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
   text-decoration: none;
-  color: #cbd5f1;
+  color: #6b7a9a;
+  font-size: 13.5px;
   font-weight: 500;
-  font-size: 14px;
-  position: relative;
-  transition: all .25s ease;
+  letter-spacing: 0.2px;
+  transition: all 0.2s ease;
 }
 
-/* Glow underline */
-.navLinks a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -7px;
-  width: 0%;
-  height: 2px;
-  border-radius: 4px;
-  background: linear-gradient(90deg,#22d3ee,#a78bfa);
-  box-shadow: 0 0 10px rgba(34,211,238,.6);
-  transition: width .25s ease;
+.navLink:hover {
+  color: #c8d4ea;
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.navLinks a:hover {
-  color: #e0f2fe;
-  text-shadow: 0 0 8px rgba(34,211,238,.35);
+.navLink.active {
+  color: #00d4a4;
+  background: rgba(0, 212, 164, 0.08);
 }
 
-.navLinks a:hover::after {
+/* ─── Search ──────────────────────────────────────────────── */
+.searchWrap {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid #1e2a40;
+  border-radius: 8px;
+  padding: 0 12px;
+  gap: 8px;
+  height: 36px;
+  width: 200px;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.searchWrap:focus-within {
+  border-color: #00d4a4;
+  background: rgba(0, 212, 164, 0.04);
+  width: 240px;
+}
+
+.searchIcon {
+  color: #3b4a6b;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  background: none;
+  border: none;
+  outline: none;
+  color: #c0cbdf;
+  font-size: 12.5px;
+  font-family: 'Space Mono', monospace;
   width: 100%;
 }
 
-/* ===== RIGHT SECTION ===== */
+.searchInput::placeholder {
+  color: #3b4a6b;
+}
 
-.sections {
+/* ─── Right Section ───────────────────────────────────────── */
+.navRight {
   display: flex;
-  gap: 14px;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* Notification Bell */
+.notifBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid #1e2a40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+  color: #6b7a9a;
+  flex-shrink: 0;
+}
+
+.notifBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #c0cbdf;
+}
+
+.notifDot {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 6px;
+  height: 6px;
+  background: #ff4f6e;
+  border-radius: 50%;
+  border: 1.5px solid #0c1019;
+}
+
+/* Watchlist Button */
+.watchlistBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 153, 255, 0.1);
+  border: 1px solid rgba(0, 153, 255, 0.25);
+  border-radius: 8px;
+  padding: 0 14px;
+  height: 36px;
+  color: #0099ff;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.watchlistBtn:hover {
+  background: rgba(0, 153, 255, 0.18);
+}
+
+/* Divider */
+.divider {
+  width: 1px;
+  height: 24px;
+  background: #1e2a40;
+  flex-shrink: 0;
+}
+
+/* ─── Profile Dropdown ────────────────────────────────────── */
+.menuWrap {
+  position: relative;
+}
+
+.profileWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 4px 10px 4px 4px;
+  border-radius: 10px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  user-select: none;
+}
+
+.profileWrap:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: #1e2a40;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00d4a4 0%, #0099ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #0a0d14;
+  flex-shrink: 0;
+}
+
+.profileInfo {
+  line-height: 1;
+}
+
+.profileName {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #c0cbdf;
+}
+
+.profileSub {
+  font-size: 10px;
+  color: #3b4a6b;
+  margin-top: 3px;
+  font-family: 'Space Mono', monospace;
+}
+
+.chevron {
+  color: #3b4a6b;
+  transition: transform 0.2s ease;
+  display: flex;
   align-items: center;
 }
 
-/* ===== LOGIN BUTTON ===== */
+.chevronOpen {
+  transform: rotate(180deg);
+}
 
-.loginBtn {
-  text-decoration: none;
-  padding: 8px 18px;
+/* Dropdown Menu */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: #0f1320;
+  border: 1px solid #1e2a40;
   border-radius: 12px;
-
-  font-size: 14px;
-  font-weight: 600;
-
-  color: #e2e8f0;
-
-  border: 1px solid rgba(34,211,238,.4);
-  background: rgba(15,23,42,.6);
-
-  transition: all .25s ease;
+  padding: 6px;
+  min-width: 210px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  z-index: 200;
+  animation: dropdownIn 0.15s ease;
 }
 
-.loginBtn:hover {
-  background: rgba(34,211,238,.12);
-  border-color: #22d3ee;
-  box-shadow: 0 0 14px rgba(34,211,238,.35);
-  transform: translateY(-1px);
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* ===== SIGNUP BUTTON ===== */
-
-.signupBtn {
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: #6b7a9a;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
   text-decoration: none;
-  padding: 9px 22px;
-  border-radius: 12px;
-
-  font-size: 14px;
-  font-weight: 700;
-  color: white;
-
-  background: linear-gradient(135deg,#06b6d4,#8b5cf6);
-
-  box-shadow:
-    0 8px 22px rgba(139,92,246,.45),
-    inset 0 0 0 1px rgba(255,255,255,.15);
-
-  transition: all .25s ease;
 }
 
-.signupBtn:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow:
-    0 12px 30px rgba(139,92,246,.65);
+.dropdownItem:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #c0cbdf;
 }
 
-/* ===== RESPONSIVE ===== */
-
-@media (max-width: 1000px) {
-
-  .navbar {
-    padding: 12px 20px;
-  }
-
-  .navLinks {
-    gap: 18px;
-  }
+.dropdownSep {
+  height: 1px;
+  background: #1e2a40;
+  margin: 4px 0;
 }
 
-/* Tablet */
-@media (max-width: 768px) {
-
-  .navLinks {
-    gap: 14px;
-  }
-
-  .logo {
-    font-size: 18px;
-  }
+.dropdownItem.danger {
+  color: #ff4f6e;
 }
 
-/* Mobile */
-@media (max-width: 620px) {
+.dropdownItem.danger:hover {
+  background: rgba(255, 79, 110, 0.08);
+  color: #ff4f6e;
+}
 
+/* ─── Responsive ──────────────────────────────────────────── */
+@media (max-width: 900px) {
   .navLinks {
     display: none;
   }
 
-  .sections {
-    gap: 10px;
+  .searchWrap {
+    width: 160px;
   }
 
-  .loginBtn {
-    padding: 7px 14px;
-    font-size: 13px;
-  }
-
-  .signupBtn {
-    padding: 8px 16px;
-    font-size: 13px;
+  .watchlistBtn {
+    display: none;
   }
 }
 
+@media (max-width: 600px) {
+  .navbar {
+    padding: 0 16px;
+    gap: 16px;
+  }
+
+  .searchWrap {
+    display: none;
+  }
+
+  .profileSub {
+    display: none;
+  }
+}

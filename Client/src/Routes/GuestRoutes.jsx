@@ -18,14 +18,11 @@ const GuestRoutes = () => {
   return (
     <div>
       <Routes>
-        <Route path="Dashboard" element={<Dashboard />} />
+        <Route path="" element={<Dashboard />} />
         <Route path="Login" element={<Login />} />
         <Route path="Signup" element={<Signup />} />
         <Route path="Companyreg" element={<Companyreg/>}/>
-        <Route path="About" element={<About />} />
-        <Route path="Pricing" element={<Pricing />} />
-        <Route path="Blog" element={<Blog />} />
-        <Route path="Sectors" element={<Sectors />} />
+       
     
       </Routes>
     </div>

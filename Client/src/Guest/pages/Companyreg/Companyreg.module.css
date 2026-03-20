@@ -1,118 +1,499 @@
-.maincontainer {
-  width: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+/* ── Variables ───────────────────────────────────────────── */
+:root {
+  --bg:       #080b12;
+  --bg2:      #0d1120;
+  --bg3:      #111827;
+  --border:   #1b2537;
+  --border2:  #243044;
+  --teal:     #00d4a4;
+  --teal-dim: rgba(0, 212, 164, 0.1);
+  --blue:     #3b82f6;
+  --red:      #ff4f6e;
+  --red-dim:  rgba(255, 79, 110, 0.1);
+  --text:     #e2e8f4;
+  --text2:    #8898b3;
+  --text3:    #3d5275;
+  --mono:     'Space Mono', monospace;
+  --display:  'Syne', sans-serif;
+  --body:     'DM Sans', sans-serif;
+  --radius:   14px;
+  --radius-sm:8px;
+}
+
+/* ── Page ────────────────────────────────────────────────── */
+.page {
   min-height: 100vh;
-  padding: 40px 20px;
-  background: linear-gradient(135deg, #141e30, #243b55);
+  background: var(--bg);
+  font-family: var(--body);
+  color: var(--text);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 60px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bgGlow {
+  position: fixed;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(0,212,164,0.055) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Container ───────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 680px;
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.5s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.headerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--teal-dim);
+  border: 1px solid rgba(0,212,164,0.2);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 11px;
+  color: var(--teal);
+  font-family: var(--mono);
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+}
+
+.badgeDot {
+  width: 6px; height: 6px;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,212,164,0.4); }
+  50%       { box-shadow: 0 0 0 5px rgba(0,212,164,0); }
+}
+
+.title {
+  font-family: var(--display);
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ── Progress ────────────────────────────────────────────── */
+.progress {
+  height: 3px;
+  background: var(--border);
+  border-radius: 100px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+  border-radius: 100px;
+  transition: width 0.4s ease;
+}
+
+.progressLabel {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--mono);
+  text-align: right;
+  margin-bottom: 32px;
+}
+
+/* ── Form Card ───────────────────────────────────────────── */
+.form {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
+  gap: 32px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+/* ── Field Group ─────────────────────────────────────────── */
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  font-size: 12px;
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--text2);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.required {
+  color: var(--teal);
+  font-size: 14px;
+}
+
+/* ── Text Input ──────────────────────────────────────────── */
+.inputWrap {
+  position: relative;
+  display: flex;
   align-items: center;
 }
 
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  color: var(--text3);
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 1;
+}
 
+.input {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 13px 44px;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s;
+}
 
-/* TITLE */
-.title {
+.input::placeholder { color: var(--text3); }
+
+.input:focus {
+  border-color: var(--teal);
+  background: rgba(0,212,164,0.03);
+  box-shadow: 0 0 0 3px rgba(0,212,164,0.08);
+}
+
+.inputCheck {
+  position: absolute;
+  right: 14px;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ── Textarea ────────────────────────────────────────────── */
+.textareaWrap {
+  position: relative;
+}
+
+.textarea {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 14px;
+  outline: none;
+  resize: vertical;
+  line-height: 1.6;
+  transition: all 0.2s;
+  min-height: 120px;
+}
+
+.textarea::placeholder { color: var(--text3); }
+
+.textarea:focus {
+  border-color: var(--teal);
+  background: rgba(0,212,164,0.03);
+  box-shadow: 0 0 0 3px rgba(0,212,164,0.08);
+}
+
+.charCount {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  font-size: 10px;
+  font-family: var(--mono);
+  color: var(--text3);
+  pointer-events: none;
+}
+
+/* ── Upload Grid ─────────────────────────────────────────── */
+.uploadsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* ── Upload Zone ─────────────────────────────────────────── */
+.uploadZone {
+  background: var(--bg3);
+  border: 1.5px dashed var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
   text-align: center;
-  font-size: 26px;
-  margin-bottom: 25px;
-  color: #fff;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.uploadZone:hover {
+  border-color: var(--teal);
+  background: var(--teal-dim);
+}
+
+.uploadDragging {
+  border-color: var(--teal);
+  background: rgba(0,212,164,0.08);
+  transform: scale(1.02);
+}
+
+.uploadDone {
+  border-style: solid;
+  border-color: var(--teal);
+  background: var(--teal-dim);
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.uploadIcon {
+  font-size: 22px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.uploadDone .uploadIcon {
+  width: 32px;
+  height: 32px;
+  background: var(--teal);
+  color: #041a14;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  margin: 0 auto 2px;
+}
+
+.uploadLabel {
+  font-size: 12px;
   font-weight: 600;
+  color: var(--text);
+}
+
+.uploadDesc {
+  font-size: 11px;
+  color: var(--text3);
+  line-height: 1.4;
+}
+
+.uploadFileName {
+  color: var(--teal);
+  font-family: var(--mono);
+  font-size: 10px;
+  word-break: break-all;
+}
+
+.uploadHint {
+  font-size: 10px;
+  font-family: var(--mono);
+  color: var(--text3);
+  margin-top: 4px;
   letter-spacing: 0.5px;
 }
 
-/* LABEL */
-.label {
-  font-size: 14px;
-  margin-bottom: 6px;
-  display: block;
-  color: #e0e0e0;
+/* ── Error ───────────────────────────────────────────────── */
+.errorBox {
+  background: var(--red-dim);
+  border: 1px solid rgba(255,79,110,0.25);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* INPUT */
-.inp {
+/* ── Submit Button ───────────────────────────────────────── */
+.submitBtn {
   width: 100%;
-  padding: 12px 14px;
-  margin-bottom: 16px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  outline: none;
-  transition: 0.3s ease;
+  padding: 16px 28px;
+  background: linear-gradient(135deg, var(--teal), #00b489);
+  color: #041a14;
+  font-family: var(--body);
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.25s;
+  letter-spacing: 0.3px;
 }
 
-.inp::placeholder {
-  color: #ccc;
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,212,164,0.35);
 }
 
-.inp:focus {
-  border-color: #4facfe;
-  box-shadow: 0 0 0 2px rgba(79, 172, 254, 0.35);
+.submitDisabled {
+  background: var(--bg3) !important;
+  color: var(--text3) !important;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  border: 1px solid var(--border);
 }
 
-/* TEXTAREA */
-.textarea {
-  width: 100%;
-  height: 100px;
-  padding: 12px 14px;
-  margin-bottom: 16px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  resize: none;
-  outline: none;
-  transition: 0.3s ease;
+.submitLoading {
+  cursor: wait;
 }
 
-.textarea:focus {
-  border-color: #4facfe;
-  box-shadow: 0 0 0 2px rgba(79, 172, 254, 0.35);
+.submitArrow {
+  font-size: 18px;
+  transition: transform 0.2s;
 }
 
-/* FILE */
-.file {
-  margin-bottom: 18px;
-  color: #fff;
+.submitBtn:hover:not(:disabled) .submitArrow {
+  transform: translateX(4px);
 }
 
-/* TABLE SECTION */
-.tablecontainer {
-  width: 100%;
-  max-width: 1100px;
-  margin-top: 50px;
+/* ── Spinner ─────────────────────────────────────────────── */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(4,26,20,0.3);
+  border-top-color: #041a14;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
 }
 
-/* TABLE */
-.companytable {
-  width: 100%;
-  border-collapse: collapse;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
-/* HEADER */
-.companytable thead {
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
-  color: #000;
-  font-weight: 600;
-}
-
-/* CELLS */
-.companytable th,
-.companytable td {
-  padding: 14px;
+/* ── Disclaimer ──────────────────────────────────────────── */
+.disclaimer {
+  font-size: 11px;
+  color: var(--text3);
   text-align: center;
+  line-height: 1.6;
+  font-family: var(--mono);
+}
+
+/* ── Success ─────────────────────────────────────────────── */
+.successCard {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 64px 48px;
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+  animation: fadeUp 0.5s ease both;
+  position: relative;
+  z-index: 1;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, var(--teal), #00b489);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 800;
+  color: #041a14;
+  margin: 0 auto 24px;
+  box-shadow: 0 0 40px rgba(0,212,164,0.3);
+}
+
+.successTitle {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.successSub {
   font-size: 14px;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 32px;
 }
 
-/* ROW HOVER */
-.companytable tbody tr {
-  transition: 0.3s ease;
+.successBtn {
+  background: var(--teal-dim);
+  border: 1px solid rgba(0,212,164,0.3);
+  color: var(--teal);
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 11px 24px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
 }
+.successBtn:hover { background: var(--teal); color: #041a14; }
 
-.companytable tbody tr:hover {
-  background: #f1f6ff;
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .form           { padding: 28px 20px; }
+  .uploadsGrid    { grid-template-columns: 1fr; }
+  .page           { padding: 40px 16px; }
 }

@@ -1,201 +1,378 @@
-/* Navbar container */
-.navbar {
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+.navbarWrapper {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 36px;
-  max-width: 1400px;
-  margin: 0 auto;
-  border-radius: 15px;
-  position: relative;
+  flex-direction: column;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ticker */
+.tickerTape {
+  width: 100%;
+  background: #0d1017;
+  border-bottom: 1px solid #1a2236;
   overflow: hidden;
+  height: 28px;
+  display: flex;
+  align-items: center;
+}
 
-  /* Glassmorphic base */
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.15);
+.tickerInner {
+  display: flex;
+  gap: 0;
+  animation: tickerScroll 28s linear infinite;
+  white-space: nowrap;
+}
+
+.tickerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  border-right: 1px solid #1a2236;
+}
+
+.tickerSym {
+  color: #c0cbdf;
+  font-weight: 700;
+}
+
+.tickerVal {
+  color: #6b7a9a;
+}
+
+.tickerUp {
+  color: #00d4a4;
+}
+
+.tickerDown {
+  color: #ff4f6e;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* navbar */
+.navbar {
+  width: 100%;
+  background: linear-gradient(180deg, #0f1320 0%, #0c1019 100%);
+  border-bottom: 1px solid #1e2a40;
+  padding: 0 28px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
   box-shadow:
-    0 18px 40px rgba(0,0,0,0.35),
-    inset 0 0 0 1px rgba(255,255,255,0.05);
-
-  /* Gradient animation */
-  background: linear-gradient(270deg, #6366f1, #22d3ee, #f43f5e, #6366f1);
-  background-size: 800% 800%;
-  animation: gradientBG 12s ease infinite;
-
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    0 4px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-/* Hover effect: lift + glow */
-.navbar:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 28px 60px rgba(99,102,241,0.5), 0 0 20px rgba(34,211,238,0.3);
+/* logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
-/* Animated gradient keyframes */
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.logoIcon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #00d4a4, #0099ff);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Optional: add subtle glow overlay */
-.navbar::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1), transparent 70%);
-  pointer-events: none;
-  animation: glowMove 6s infinite alternate;
+.logoText {
+  font-family: 'Space Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #e8edf5;
+  letter-spacing: -0.5px;
 }
 
-@keyframes glowMove {
-  0% { transform: translate(0,0) rotate(0deg); }
-  100% { transform: translate(30px, 30px) rotate(180deg); }
+.logoAccent {
+  background: linear-gradient(135deg, #00d4a4, #0099ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-
-.navbar:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 28px 60px rgba(0,0,0,0.45);
-}
-
-/* =============================== */
-/* NAV LINKS — COOL & ATTRACTIVE UI */
-/* =============================== */
-
+/* nav links */
 .navLinks {
   display: flex;
+  align-items: center;
+  gap: 2px;
   list-style: none;
-  gap: 30px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
 }
 
 .navLinks li {
-  position: relative;
-  font-weight: 600;
-  cursor: pointer;
-  overflow: hidden; /* needed for shimmer animation */
+  list-style: none;
 }
 
-/* Main link styling */
-.navLinks li a {
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
   text-decoration: none;
-  color: #e5e7eb;
-  font-size: 16px;
-  padding: 4px 0;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
+  color: #6b7a9a;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  transition: all 0.2s ease;
 }
 
-/* Gradient underline — animated */
-.navLinks li a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 0%;
-  height: 3px;
-  background: linear-gradient(90deg, #6366f1, #22d3ee, #f43f5e);
-  border-radius: 2px;
-  transition: width 0.4s ease, transform 0.4s ease;
-  box-shadow: 0 0 8px rgba(99,102,241,0.6), 0 0 16px rgba(34,211,238,0.5);
+.navLink:hover {
+  color: #c8d4ea;
+  background: rgba(255, 255, 255, 0.04);
 }
 
-/* Hover effect for underline */
-.navLinks li a:hover::after {
+.active {
+  color: #00d4a4;
+  background: rgba(0, 212, 164, 0.08);
+}
+
+/* search */
+.searchWrap {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid #1e2a40;
+  border-radius: 8px;
+  padding: 0 12px;
+  gap: 8px;
+  height: 36px;
+  width: 200px;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.searchWrap:focus-within {
+  border-color: #00d4a4;
+  background: rgba(0, 212, 164, 0.04);
+  width: 240px;
+}
+
+.searchIcon {
+  color: #3b4a6b;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  color: #c0cbdf !important;
+  font-size: 12.5px !important;
+  font-family: 'Space Mono', monospace !important;
   width: 100%;
-  transform: scaleX(1.05);
 }
 
-/* Text hover glow + gradient shimmer */
-.navLinks li a:hover {
-  color: #ffffff;
-  text-shadow:
-    0 0 6px #6366f1,
-    0 0 10px #22d3ee,
-    0 0 14px #f43f5e;
-
-  background: linear-gradient(270deg, #6366f1, #22d3ee, #f43f5e, #6366f1);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: textShimmer 2s linear infinite;
+.searchInput input::placeholder {
+  color: #3b4a6b !important;
+  opacity: 1;
 }
 
-/* Text shimmer animation */
-@keyframes textShimmer {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Optional subtle scale effect */
-.navLinks li a:hover {
-  transform: scale(1.05);
-}
-
-
-/* Sections for buttons */
-.sections {
+/* right */
+.navRight {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
 
-.sections button {
-  padding: 10px 22px;
-  border-radius: 12px;
+.notifBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid #1e2a40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+  color: #6b7a9a;
+  flex-shrink: 0;
+}
+
+.notifBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #c0cbdf;
+}
+
+.notifDot {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 6px;
+  height: 6px;
+  background: #ff4f6e;
+  border-radius: 50%;
+  border: 1.5px solid #0c1019;
+}
+
+.watchlistBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 153, 255, 0.1);
+  border: 1px solid rgba(0, 153, 255, 0.25);
+  border-radius: 8px;
+  padding: 0 14px;
+  height: 36px;
+  color: #0099ff;
+  font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
-  border: none;
-  background: linear-gradient(135deg, #6366f1, #22d3ee);
-  color: #fff;
-  transition: all 0.3s ease;
-}
-
-.sections button:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 10px 30px rgba(99,102,241,0.5);
-}
-
-/* Link inside button */
-.primary {
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
   text-decoration: none;
-  color: #fff;
+  flex-shrink: 0;
 }
 
-/* Responsive Navbar */
-@media (max-width: 1024px) {
-  .navbar {
-    flex-direction: column;
-    gap: 12px;
-    padding: 14px 20px;
-  }
+.watchlistBtn:hover {
+  background: rgba(0, 153, 255, 0.18);
+}
 
+.divider {
+  width: 1px;
+  height: 24px;
+  background: #1e2a40;
+  flex-shrink: 0;
+}
+
+/* profile */
+.profileWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 4px 10px 4px 4px;
+  border-radius: 10px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  user-select: none;
+}
+
+.profileWrap:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: #1e2a40;
+}
+
+.avatar {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 8px !important;
+  background: linear-gradient(135deg, #00d4a4 0%, #0099ff 100%) !important;
+  color: #0a0d14 !important;
+  font-family: 'Space Mono', monospace !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.profileInfo {
+  line-height: 1;
+}
+
+.profileName {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #c0cbdf;
+}
+
+.profileSub {
+  font-size: 10px;
+  color: #3b4a6b;
+  margin-top: 3px;
+  font-family: 'Space Mono', monospace;
+}
+
+.chevron {
+  color: #3b4a6b;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* mui menu */
+.muiMenuPaper {
+  background: #0f1320 !important;
+  border: 1px solid #1e2a40 !important;
+  border-radius: 12px !important;
+  padding: 6px !important;
+  min-width: 210px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+  margin-top: 10px !important;
+  color: #c0cbdf !important;
+}
+
+.muiMenuItem {
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #6b7a9a !important;
+  min-height: 40px !important;
+}
+
+.muiMenuItem:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #c0cbdf !important;
+}
+
+.muiDanger {
+  color: #ff4f6e !important;
+}
+
+.muiDanger:hover {
+  background: rgba(255, 79, 110, 0.08) !important;
+  color: #ff4f6e !important;
+}
+
+/* responsive */
+@media (max-width: 900px) {
   .navLinks {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    display: none;
   }
 
-  .sections {
-    justify-content: center;
-    width: 100%;
+  .searchWrap {
+    width: 160px;
+  }
+
+  .watchlistBtn {
+    display: none;
   }
 }
 
 @media (max-width: 600px) {
-  .navLinks li a {
-    font-size: 14px;
+  .navbar {
+    padding: 0 16px;
+    gap: 16px;
   }
 
-  .sections button {
-    padding: 8px 16px;
-    font-size: 14px;
+  .searchWrap {
+    display: none;
+  }
+
+  .profileSub {
+    display: none;
   }
 }

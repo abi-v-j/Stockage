@@ -11,7 +11,7 @@ const MainRoutes = () => {
       <Routes>
         <Route path="admin/*" element={<AdminHomepage />} />
         <Route path="/*" element={<Guesthome/>} />
-        <Route path="Userhome/*" element={<Userhome />} />
+        <Route path="User/*" element={<Userhome />} />
       </Routes>
 
     </div>
